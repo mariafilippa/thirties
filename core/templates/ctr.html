@@ -1,0 +1,76 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts Morris {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="/static/assets/plugins/chart-morris/css/morris.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">協同過濾</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">Chart</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">協同過濾</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+                    <!-- [ Morris Chart ] start -->
+                    <div class="col-xl-11">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>CTR</h5>
+                            </div>
+                            <div class="card-block">
+                                <div id="morris-line-smooth-chart" class="ChartShadow" style="height:400px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Morris Chart ] end -->
+                </div>
+                <!-- [ Main Content ] end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    {{ chart|json_script:"line-chart" }}
+    <script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>
+    <script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>
+    <script type="text/javascript">
+      'use strict';
+      $(document).ready(function() {
+          setTimeout(function() {
+          // [ line-smooth-chart ] start
+          Morris.Line(JSON.parse(document.getElementById('line-chart').textContent));
+          // [ line-smooth-chart ] end
+              }, 700);
+      });
+    </script>
+
+{% endblock javascripts %}

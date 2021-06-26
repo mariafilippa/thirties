@@ -3,6 +3,8 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
@@ -33,6 +35,54 @@ def mapping(request):
     context['page_obj'] = page_obj
 
     html_template = loader.get_template( 'mapping.html' )
+    return HttpResponse(html_template.render(context, request))
+
+@login_required(login_url="/login/")
+def ctr(request, key):
+
+    context = {}
+    context['chart'] = {
+        "element": 'morris-line-smooth-chart',
+        "data": [{
+              "date": '2021-06-12',
+              "ctr": 100
+          },
+          {
+              "date": '2021-06-13',
+              "ctr": 75
+          },
+          {
+              "date": '2021-06-14',
+              "ctr": 50
+          },
+          {
+              "date": '2021-06-15',
+              "ctr": 75
+          },
+          {
+              "date": '2021-06-16',
+              "ctr": 50
+          },
+          {
+              "date": '2021-06-17',
+              "ctr": 75
+          },
+          {
+              "date": '2021-06-18',
+              "ctr": 100
+          }
+        ],
+        "xkey": 'date',
+        "redraw": True,
+        "resize": True,
+        "ykeys": ['ctr'],
+        "hideHover": 'auto',
+        "responsive":True,
+        "labels": ['CTR'],
+        "lineColors": ['#1de9b6']
+    }
+
+    html_template = loader.get_template( 'ctr.html' )
     return HttpResponse(html_template.render(context, request))
 
 @login_required(login_url="/login/")

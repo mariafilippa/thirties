@@ -10,6 +10,7 @@ urlpatterns = [
 
     # The home page
     path('', views.index, name='home'),
+    re_path(r'ctr/(?P<key>.*)/', views.ctr, name='ctr'),
     re_path(r'mapping/.*', views.mapping, name='mapping'),
 
     # Matches any html file
