@@ -3,7 +3,11 @@
 {% block title %} Dashboard {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="/static/assets/plugins/chart-morris/css/morris.css">
+
+{% endblock stylesheets %}
 
 {% block content %}
 
@@ -15,6 +19,30 @@
             <div class="main-body">
                 <div class="page-wrapper">
                     <!-- [ Main Content ] start -->
+                    <div class="row">
+                        <!-- [ Morris Chart ] start -->
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>平均月使用次數用戶數分佈</h5>
+                                </div>
+                                <div class="card-block">
+                                    <div id="morris-line-smooth-chart" class="ChartShadow" style="height:300px"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>平均月運動時間用戶數分佈</h5>
+                                </div>
+                                <div class="card-block">
+                                    <div id="morris-line-smooth-chart-2" class="ChartShadow" style="height:300px"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- [ Morris Chart ] end -->
+                    </div>
                     <div class="row">
                         <!--[ daily sales section ] start-->
                         <!-- <div class="col-md-6 col-xl-4">
@@ -91,4 +119,21 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+    {{ chart|json_script:"area-chart" }}
+    {{ chart2|json_script:"area-chart-2" }}
+    <script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>
+    <script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>
+    <script type="text/javascript">
+      'use strict';
+      $(document).ready(function() {
+          setTimeout(function() {
+          // [ line-smooth-chart ] start
+          Morris.Area(JSON.parse(document.getElementById('area-chart').textContent));
+          Morris.Area(JSON.parse(document.getElementById('area-chart-2').textContent));
+          // [ line-smooth-chart ] end
+              }, 700);
+      });
+    </script>
+
+{% endblock javascripts %}
